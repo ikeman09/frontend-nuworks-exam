@@ -33,6 +33,7 @@ const TasksFeed: FC<ITasksFeedProps> = ({ data, isLoading }) => {
           <form
             onSubmit={e => {
               e.preventDefault();
+              debugger;
               handleEdit(task._id, title);
             }}
             key={task._id}
@@ -70,13 +71,13 @@ const TasksFeed: FC<ITasksFeedProps> = ({ data, isLoading }) => {
                 onClick={handleIsEditing}>
                 <img src={EditIcon} alt="Edit Icon" />
               </label>
-              <button
-                onClick={e => {
-                  e.preventDefault();
+              <label
+                onClick={() => {
+                  console.log('HERE');
                   handleDelete(task._id);
                 }}>
                 <img src={TrashIconLight} alt="Trash Icon" />
-              </button>
+              </label>
             </div>
           </form>
         ))}
