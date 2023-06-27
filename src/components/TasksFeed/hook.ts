@@ -1,6 +1,10 @@
 import { ITodo } from '@interfaces/types';
 import { useEffect, useState } from 'react';
-import { useDeleteTask, useEditTask } from '@hooks/useMutation';
+import {
+  useCompleteTask,
+  useDeleteTask,
+  useEditTask,
+} from '@hooks/useMutation';
 // import { useMutation, useQueryClient } from '@tanstack/react-query';
 // import { editTask } from '@api/todos.ts';
 // import { QueryKeys } from '@constants/enums.ts';
@@ -12,6 +16,7 @@ const useTaskFeed = (data: ITodo[] | undefined) => {
   const [currentId, setCurrentId] = useState('');
   const mutation = useEditTask();
   const deleteMutation = useDeleteTask();
+  const completeMutation = useCompleteTask();
 
   useEffect(() => {
     setTodos(data);
@@ -48,6 +53,23 @@ const useTaskFeed = (data: ITodo[] | undefined) => {
     deleteMutation.mutate({ id });
   };
 
+  const handleComplete = (id: string) => {
+    const updatedTodos = todos?.map(todo => {
+      if (todo._id === id) {
+        return {
+          ...todo,
+          completed: !todo.completed,
+        };
+      }
+
+      return todo;
+    });
+
+    setTodos(updatedTodos);
+
+    completeMutation.mutate({ id });
+  };
+
   const handleIsEditing = (id: string) => {
     setIsEditing(true);
     setCurrentId(id);
@@ -62,6 +84,7 @@ const useTaskFeed = (data: ITodo[] | undefined) => {
     todos,
     currentId,
     handleDelete,
+    handleComplete,
     handleBlur,
     handleIsEditing,
     handleEdit,

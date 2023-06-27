@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { editTask, createTask, deleteTask } from '@api/todos.ts';
+import { editTask, createTask, deleteTask, completeTask } from '@api/todos.ts';
 import { QueryKeys } from '@constants/enums.ts';
 
 export const useCreateTask = () => {
@@ -37,6 +37,21 @@ export const useDeleteTask = () => {
 
   return useMutation({
     mutationFn: deleteTask,
+    onSuccess: () => {
+      queryClient
+        .invalidateQueries({ queryKey: [QueryKeys.GET_TODOS] })
+        .then(() => {
+          console.log('queries invalidated');
+        });
+    },
+  });
+};
+
+export const useCompleteTask = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: completeTask,
     onSuccess: () => {
       queryClient
         .invalidateQueries({ queryKey: [QueryKeys.GET_TODOS] })

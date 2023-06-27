@@ -21,10 +21,7 @@ const AddTask: FC = () => {
       }}>
       <PlusCircledIcon
         className="h-9 w-9 text-yellow"
-        onClick={e => {
-          e.preventDefault();
-          handleAddTask();
-        }}
+        onClick={handleAddTask}
       />
       <input
         className="w-11/12 pl-2 caret-white outline-none bg-midnight"

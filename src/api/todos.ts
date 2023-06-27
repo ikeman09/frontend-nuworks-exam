@@ -68,4 +68,20 @@ const deleteTask = async (data: { id: string }) => {
   }
 };
 
-export { getTasks, editTask, createTask, deleteTask };
+const completeTask = async (data: { id: string }) => {
+  try {
+    const { id } = data;
+
+    const response = await Api.put(
+      `${import.meta.env.VITE_BASE_URL}/todo/complete/${id}`,
+      {},
+    );
+
+    return response?.data.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export { getTasks, editTask, createTask, deleteTask, completeTask };
