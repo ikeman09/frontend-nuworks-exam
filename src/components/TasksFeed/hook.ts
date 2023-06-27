@@ -9,6 +9,7 @@ const useTaskFeed = (data: ITodo[] | undefined) => {
   const [todos, setTodos] = useState<ITodo[] | undefined>(data);
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState('');
+  const [currentId, setCurrentId] = useState('');
   const mutation = useEditTask();
   const deleteMutation = useDeleteTask();
 
@@ -47,16 +48,19 @@ const useTaskFeed = (data: ITodo[] | undefined) => {
     deleteMutation.mutate({ id });
   };
 
-  const handleIsEditing = () => {
+  const handleIsEditing = (id: string) => {
     setIsEditing(true);
+    setCurrentId(id);
   };
 
-  const handleBlur = () => {
+  const handleBlur = (id: string) => {
     setIsEditing(false);
+    setCurrentId(id);
   };
 
   return {
     todos,
+    currentId,
     handleDelete,
     handleBlur,
     handleIsEditing,

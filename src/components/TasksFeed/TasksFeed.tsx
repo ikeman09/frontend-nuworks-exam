@@ -14,6 +14,7 @@ const TasksFeed: FC<ITasksFeedProps> = ({ data, isLoading }) => {
   const {
     todos,
     title,
+    currentId,
     handleEdit,
     handleDelete,
     handleTitleChange,
@@ -45,7 +46,7 @@ const TasksFeed: FC<ITasksFeedProps> = ({ data, isLoading }) => {
                   <CheckIcon className="h-6 w-6 text-midnight" />
                 </Checkbox.Indicator>
               </Checkbox.Root>
-              {isEditing ? (
+              {isEditing && task._id == currentId ? (
                 <>
                   <input
                     className="pl-[10px] caret-white bg-todos outline-none"
@@ -53,7 +54,7 @@ const TasksFeed: FC<ITasksFeedProps> = ({ data, isLoading }) => {
                     id={'editTask' + task._id}
                     placeholder={task.title}
                     autoComplete="off"
-                    onBlur={handleBlur}
+                    onBlur={() => handleBlur(task._id)}
                     onChange={handleTitleChange}
                   />
                 </>
@@ -67,12 +68,11 @@ const TasksFeed: FC<ITasksFeedProps> = ({ data, isLoading }) => {
               <label
                 className="pr-2"
                 htmlFor={'editTask' + task._id}
-                onClick={handleIsEditing}>
+                onClick={() => handleIsEditing(task._id)}>
                 <img src={EditIcon} alt="Edit Icon" />
               </label>
               <label
                 onClick={() => {
-                  console.log('HERE');
                   handleDelete(task._id);
                 }}>
                 <img src={TrashIconLight} alt="Trash Icon" />
