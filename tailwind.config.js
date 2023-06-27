@@ -15,9 +15,11 @@ export default {
     },
     colors: {
       completed: '#252526',
-      midnight: '#1C1B1B',
-      side: '#1E1E1E',
+      search: '#2D2D30',
+      todos: '#3E3E42',
       gray: '#848484',
+      side: '#1E1E1E',
+      midnight: '#1C1B1B',
       yellow: '#F4CA44',
       text: '#FFFFFF',
     },
