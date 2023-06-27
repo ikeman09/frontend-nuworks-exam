@@ -33,7 +33,6 @@ const TasksFeed: FC<ITasksFeedProps> = ({ data, isLoading }) => {
           <form
             onSubmit={e => {
               e.preventDefault();
-              debugger;
               handleEdit(task._id, title);
             }}
             key={task._id}
